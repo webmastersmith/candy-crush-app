@@ -1,41 +1,41 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { createBoard } from './App-utils'
+import {
+  createBoard,
+  checkForColumnOfFour,
+  checkForRowOfFour,
+  checkForColumnOfThree,
+  checkForRowOfThree,
+  moveIntoSquareBelow,
+  pipe,
+} from './App-utils'
 
 export default function App() {
   const [randomColorArray, setRandomColorArray] = useState([])
-  const width = 8
-  const candyColors = ['blue', 'green', 'orange', 'purple', 'red', 'yellow']
+  const intervalDelay = 1000
 
   useEffect(() => {
-    setRandomColorArray(createBoard(width, candyColors))
+    //run once on load. Create initial randomColorArray board and add to state.
+    setRandomColorArray(createBoard())
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const checkForColumnOfThree = useCallback(() => {
-    for (let idx = 0; idx <= 47; idx++) {
-      const idxArray = [idx, idx + width, idx + width * 2]
-      const isColumnOfThree = idxArray.every(
-        (index) => randomColorArray[index] === randomColorArray[idx]
-      )
-
-      if (isColumnOfThree) {
-        // this changes randomColorArray, but does not cause state to re-render.
-        idxArray.forEach((index) => (randomColorArray[index] = ''))
-      }
-    }
-  }, [randomColorArray])
-
+  //run set interval and check board for matches
   useEffect(() => {
     const timer = setInterval(() => {
-      checkForColumnOfThree()
+      const newColorArray = pipe(
+        checkForColumnOfFour,
+        checkForRowOfFour,
+        checkForColumnOfThree,
+        checkForRowOfThree,
+        moveIntoSquareBelow
+      )(randomColorArray)
 
-      // needed to update state
-      setRandomColorArray([...randomColorArray])
-    }, 1000)
+      // needed to update state and cause DOM re-render.
+      setRandomColorArray([...newColorArray])
+    }, intervalDelay)
     return () => clearInterval(timer)
-  }, [checkForColumnOfThree, randomColorArray])
+  }, [randomColorArray])
 
   return (
     <Wrapper>
