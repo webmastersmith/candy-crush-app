@@ -9,12 +9,15 @@ import {
   checkForRowOfThree,
   moveIntoSquareBelow,
   pipe,
+  dragStart,
+  dragDrop,
 } from './App-utils'
 
 export default function App() {
   const [randomColorArray, setRandomColorArray] = useState([])
   const [tileBeingDragged, setTileBeingDragged] = useState(null)
   const [tileBeingReplaced, setTileBeingReplaced] = useState(null)
+  const [score, setScore] = useState(100)
   const intervalDelay = 100
 
   useEffect(() => {
@@ -31,7 +34,6 @@ export default function App() {
     const colorArray = [...randomColorArray]
     const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
     const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
-    console.log(tileBeingDragged.getAttribute('src'))
     colorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
     colorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
 
@@ -46,18 +48,22 @@ export default function App() {
     const { isMatch: isColumnOfFour } = checkForColumnOfFour({
       colorArray,
       isMatch: false,
+      setScore,
     })
     const { isMatch: isRowOfFour } = checkForRowOfFour({
       colorArray,
       isMatch: false,
+      setScore,
     })
     const { isMatch: isColumnOfThree } = checkForColumnOfThree({
       colorArray,
       isMatch: false,
+      setScore,
     })
     const { isMatch: isRowOfThree } = checkForRowOfThree({
       colorArray,
       isMatch: false,
+      setScore,
     })
 
     // console.log(isColumnOfFour, isRowOfFour, isColumnOfThree, isRowOfThree)
@@ -76,7 +82,11 @@ export default function App() {
       checkForColumnOfThree,
       checkForRowOfThree,
       moveIntoSquareBelow
-    )({ colorArray: randomColorArray, isMatch: false })
+    )({
+      colorArray: randomColorArray,
+      isMatch: false,
+      setScore,
+    })
   }, [randomColorArray])
   //run set interval and check board for matches
   useEffect(() => {
@@ -91,6 +101,7 @@ export default function App() {
   // console.log(tileBeingDragged)
   return (
     <Wrapper>
+      <Score>Score: {score}</Score>
       <Game>
         {randomColorArray.map((color, idx) => (
           <Tile
@@ -114,7 +125,12 @@ export default function App() {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 30px;
+  align-items: center;
+`
+const Score = styled.h1`
+  font-weight: bold;
 `
 const Game = styled.div`
   display: flex;
