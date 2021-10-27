@@ -100,8 +100,8 @@ export default function App() {
         const isRowOfThree = indexs.every(
           (index) => randomColorArray[index] === randomColorArray[idx]
         )
+
         const isBlank = randomColorArray[idx] === blank
-        // console.log('is Row of three', isRowOfThree)
         if (isRowOfThree && !isBlank) {
           indexs.forEach((index) => (randomColorArray[index] = blank))
           isMatch = true
@@ -123,8 +123,8 @@ export default function App() {
       }
 
       //move all blanks up to top
-      if (randomColorArray[idx + 8] === blank) {
-        randomColorArray[idx + 8] = randomColorArray[idx]
+      if (randomColorArray[idx + width] === blank) {
+        randomColorArray[idx + width] = randomColorArray[idx]
         randomColorArray[idx] = blank
       }
     }
@@ -163,23 +163,13 @@ export default function App() {
       const isRowOfFour = checkForRowOfFour()
       const isColumnOfThree = checkForColumnOfThree()
       const isRowOfThree = checkForRowOfThree()
-      // console.log(
-      //   isColumnOfFour,
-      //   isRowOfFour,
-      //   isColumnOfThree,
-      //   isRowOfThree
-      // )
 
       if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
-        // reset tile logic.
-        setTileBeingDragged(null)
-        setTileBeingReplaced(null)
+        // do nothing
       } else {
         // if not a match, return colors back to original.
         randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
         randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
-        setTileBeingDragged(null)
-        setTileBeingReplaced(null)
       }
     }
   }
@@ -208,6 +198,7 @@ export default function App() {
 
   return (
     <Wrapper>
+      <Score>Candy Crush</Score>
       <Score>Score: {score}</Score>
       <Game>
         {randomColorArray.map((color, idx) => (
@@ -226,6 +217,13 @@ export default function App() {
           />
         ))}
       </Game>
+      <Rules>
+        Candy Crush Rules
+        <li>You can only move one space at a time: up, down, left, right</li>
+        <li>
+          The moved tile must make three or four of a kind to be a valid move
+        </li>
+      </Rules>
     </Wrapper>
   )
 }
@@ -237,6 +235,9 @@ const Wrapper = styled.div`
   align-items: center;
 `
 const Score = styled.h1`
+  &:nth-child(2) {
+    margin-bottom: 1rem;
+  }
   font-weight: bold;
 `
 const Game = styled.div`
@@ -248,4 +249,13 @@ const Game = styled.div`
 const Tile = styled.img`
   width: 70px;
   height: 70px;
+`
+const Rules = styled.div`
+  margin-top: 3rem;
+  font-weight: bold;
+  text-align: center;
+  li {
+    text-align: left;
+    font-weight: normal;
+  }
 `
