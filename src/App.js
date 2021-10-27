@@ -33,11 +33,11 @@ export default function App() {
     let isMatch = false
     for (let idx = 0; idx <= 39; idx++) {
       const indexs = [idx, idx + width, idx + width * 2, idx + width * 3]
-      const isColumnOfThree = indexs.every(
+      const isColumnOfFour = indexs.every(
         (index) => randomColorArray[index] === randomColorArray[idx]
       )
       const isBlank = randomColorArray[idx] === blank
-      if (isColumnOfThree && !isBlank) {
+      if (isColumnOfFour && !isBlank) {
         // this changes randomColorArray, but does not cause DOM to update.
         indexs.forEach((index) => (randomColorArray[index] = blank))
         isMatch = true
@@ -57,11 +57,11 @@ export default function App() {
       // board end pieces that cannot make four of a kind.
       if (!notValid.includes(idx)) {
         const indexs = [idx, idx + 1, idx + 2, idx + 3]
-        const isColumnOfThree = indexs.every(
+        const isRowOfFour = indexs.every(
           (index) => randomColorArray[index] === randomColorArray[idx]
         )
         const isBlank = randomColorArray[idx] === blank
-        if (isColumnOfThree && !isBlank) {
+        if (isRowOfFour && !isBlank) {
           // this changes randomColorArray, but does not cause DOM to update.
           indexs.forEach((index) => (randomColorArray[index] = blank))
           isMatch = true
