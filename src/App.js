@@ -145,8 +145,6 @@ export default function App() {
   const dragEnd = (e) => {
     const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
     const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
-    randomColorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
-    randomColorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
 
     const validMoves = [
       tileDraggedId - 1,
@@ -157,26 +155,28 @@ export default function App() {
 
     // check if move created a match of 4 or 3.
     const isValidMove = validMoves.includes(tileReplacedId)
-    const isColumnOfFour = checkForColumnOfFour()
-    const isRowOfFour = checkForRowOfFour()
-    const isColumnOfThree = checkForColumnOfThree()
-    const isRowOfThree = checkForRowOfThree()
 
-    // console.log(
-    //   isValidMove,
-    //   isColumnOfFour,
-    //   isRowOfFour,
-    //   isColumnOfThree,
-    //   isRowOfThree
-    // )
+    if (isValidMove) {
+      randomColorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
+      randomColorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
+      const isColumnOfFour = checkForColumnOfFour()
+      const isRowOfFour = checkForRowOfFour()
+      const isColumnOfThree = checkForColumnOfThree()
+      const isRowOfThree = checkForRowOfThree()
+      // console.log(
+      //   isColumnOfFour,
+      //   isRowOfFour,
+      //   isColumnOfThree,
+      //   isRowOfThree
+      // )
 
-    if (
-      isValidMove &&
-      (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree)
-    ) {
-    } else {
-      randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
-      randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
+      if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
+        // no need to do anything.
+      } else {
+        // if not a match, return colors back to original.
+        randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
+        randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
+      }
     }
   }
 
