@@ -251,7 +251,7 @@ const Tile = styled.img`
   height: 70px;
 `
 const Rules = styled.div`
-  margin-top: 3rem;
+  margin-top: 4rem;
   font-weight: bold;
   text-align: center;
   li {
