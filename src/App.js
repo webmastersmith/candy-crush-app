@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
-import { useCallback } from 'react/cjs/react.development'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import styled from 'styled-components/macro'
 import blank from './images/blank.png'
 import blueCandy from './images/blue-candy.png'
@@ -163,13 +162,13 @@ export default function App() {
     const isColumnOfThree = checkForColumnOfThree()
     const isRowOfThree = checkForRowOfThree()
 
-    console.log(
-      isValidMove,
-      isColumnOfFour,
-      isRowOfFour,
-      isColumnOfThree,
-      isRowOfThree
-    )
+    // console.log(
+    //   isValidMove,
+    //   isColumnOfFour,
+    //   isRowOfFour,
+    //   isColumnOfThree,
+    //   isRowOfThree
+    // )
 
     if (
       isValidMove &&
@@ -203,7 +202,6 @@ export default function App() {
     moveIntoSquareBelow,
   ])
 
-  // console.log(tileBeingDragged)
   return (
     <Wrapper>
       <Score>Score: {score}</Score>
