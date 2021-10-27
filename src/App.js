@@ -198,8 +198,8 @@ export default function App() {
 
   return (
     <Wrapper>
-      <Score>Candy Crush</Score>
-      <Score>Score: {score}</Score>
+      <H1>Candy Crush</H1>
+      <H1>Score: {score}</H1>
       <Game>
         {randomColorArray.map((color, idx) => (
           <Tile
@@ -234,7 +234,7 @@ const Wrapper = styled.div`
   padding: 30px;
   align-items: center;
 `
-const Score = styled.h1`
+const H1 = styled.h1`
   &:nth-child(2) {
     margin-bottom: 1rem;
   }
