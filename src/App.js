@@ -9,15 +9,13 @@ import {
   checkForRowOfThree,
   moveIntoSquareBelow,
   pipe,
-  dragStart,
-  dragDrop,
 } from './App-utils'
 
 export default function App() {
   const [randomColorArray, setRandomColorArray] = useState([])
   const [tileBeingDragged, setTileBeingDragged] = useState(null)
   const [tileBeingReplaced, setTileBeingReplaced] = useState(null)
-  const [score, setScore] = useState(100)
+  const [score, setScore] = useState(0)
   const intervalDelay = 100
 
   useEffect(() => {
