@@ -171,11 +171,15 @@ export default function App() {
       // )
 
       if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
-        // no need to do anything.
+        // reset tile logic.
+        setTileBeingDragged(null)
+        setTileBeingReplaced(null)
       } else {
         // if not a match, return colors back to original.
         randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
         randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
+        setTileBeingDragged(null)
+        setTileBeingReplaced(null)
       }
     }
   }
