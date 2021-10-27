@@ -3,4 +3,6 @@
 
 #### [Ania Kubow Candy Crush Github page](https://github.com/kubowania/candy-crush-reactjs.git)
 
+## You can play my version [here](https://webmastersmith.github.io/candy-crush-app/)
+
 
