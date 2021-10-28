@@ -1,6 +1,6 @@
 # Candy Crush Game inspired by Ania Kubow
 
-**Thank you Ania for making such a great game and allowing others to learn from you.**
+### Thank you Ania for making such a great game and allowing others to learn from you.
 
 [Ania Kubow Candy Crush Youtube video](https://www.youtube.com/watch?v=PBrEq9Wd6_U)
 
