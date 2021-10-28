@@ -145,14 +145,13 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const dragStart = (e) => {
-    setTileBeingDragged(e.target)
-  }
+  const dragStart = (e) => setTileBeingDragged(e.target)
   const dragDrop = (e) => {
     e.preventDefault()
     setTileBeingReplaced(e.target)
   }
   const dragEnd = (e) => {
+    // get 'data-id' from tile
     const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
     const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
 
@@ -163,10 +162,10 @@ export default function App() {
       tileDraggedId + width,
     ]
 
-    // check if move created a match of 4 or 3.
+    // check if move is valid before checking if it created a match of 3 or 4.
     const isValidMove = validMoves.includes(tileReplacedId)
-
     if (isValidMove) {
+      //make candy switch, then check if it creates 3 or 4 match.
       randomColorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
       randomColorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
       const isColumnOfFour = checkForColumnOfFour()
@@ -174,6 +173,7 @@ export default function App() {
       const isColumnOfThree = checkForColumnOfThree()
       const isRowOfThree = checkForRowOfThree()
 
+      // if any are true, do nothing, randomColorArray has already been switched.
       if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
         // do nothing
       } else {
@@ -200,7 +200,7 @@ export default function App() {
         isRowOfThree ||
         isMovedBlank
       ) {
-        // needed to update state and cause DOM re-render.
+        // spread operator is needed to cause DOM re-render. Else view will not update.
         setRandomColorArray([...randomColorArray])
       }
     }, intervalDelay)
@@ -220,10 +220,10 @@ export default function App() {
       <H1>Candy Crush</H1>
       <H1>Score: {score}</H1>
       <Game>
-        {randomColorArray.map((color, idx) => (
+        {randomColorArray.map((candy, idx) => (
           <Tile
             key={idx}
-            src={color}
+            src={candy}
             alt={idx}
             data-id={idx}
             onDragStart={dragStart}
@@ -238,10 +238,12 @@ export default function App() {
       </Game>
       <Rules>
         Candy Crush Rules
-        <li>You can only move one space at a time: up, down, left, right</li>
-        <li>
-          The moved tile must make three or four of a kind to be a valid move
-        </li>
+        <ul>
+          <li>You can only move one space at a time: up, down, left, right</li>
+          <li>
+            The moved tile must make three or four of a kind to be a valid move
+          </li>
+        </ul>
       </Rules>
     </Wrapper>
   )
@@ -273,8 +275,11 @@ const Rules = styled.div`
   margin-top: 4rem;
   font-weight: bold;
   text-align: center;
-  li {
-    text-align: left;
-    font-weight: normal;
+  ul {
+    margin-top: 0;
+    li {
+      text-align: left;
+      font-weight: normal;
+    }
   }
 `
