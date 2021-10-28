@@ -1,10 +1,10 @@
 # Candy Crush App inspired by Ania Kubow
 
-### Thank you Ania for making such a great game and allowing others to learn from you.
+**Thank you Ania for making such a great game and allowing others to learn from you.**
 
-###### [Ania Kubow Candy Crush Youtube video](https://www.youtube.com/watch?v=PBrEq9Wd6_U)
+[Ania Kubow Candy Crush Youtube video](https://www.youtube.com/watch?v=PBrEq9Wd6_U)
 
-###### [Ania Kubow Candy Crush Github page](https://github.com/kubowania/candy-crush-reactjs.git)
+[Ania Kubow Candy Crush Github page](https://github.com/kubowania/candy-crush-reactjs.git)
 
 ## You can play my version [here](https://webmastersmith.github.io/candy-crush-app/)
 
