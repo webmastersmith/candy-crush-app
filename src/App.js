@@ -113,21 +113,26 @@ export default function App() {
   }, [randomColorArray])
 
   const moveIntoSquareBelow = useCallback(() => {
+    let isMatch = false
     //loop through all but last row. Find blank ones and move to top row.
     for (let idx = 0; idx <= 55; idx++) {
       // if blank is in first row, add random candy
       const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
       const isFirstRow = firstRow.includes(idx)
+      // if blank has made it to the first row, insert random candy color.
       if (isFirstRow && randomColorArray[idx] === blank) {
         randomColorArray[idx] = randomColor(candyColors)
+        isMatch = true
       }
 
       //move all blanks up to top
       if (randomColorArray[idx + width] === blank) {
+        isMatch = true
         randomColorArray[idx + width] = randomColorArray[idx]
         randomColorArray[idx] = blank
       }
     }
+    return isMatch
   }, [randomColorArray, candyColors])
 
   // run once on load. Create initial randomColorArray board and add to state.
@@ -140,8 +145,13 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const dragStart = (e) => setTileBeingDragged(e.target)
-  const dragDrop = (e) => setTileBeingReplaced(e.target)
+  const dragStart = (e) => {
+    setTileBeingDragged(e.target)
+  }
+  const dragDrop = (e) => {
+    e.preventDefault()
+    setTileBeingReplaced(e.target)
+  }
   const dragEnd = (e) => {
     const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
     const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
@@ -177,13 +187,22 @@ export default function App() {
   //run set interval and check board for matches
   useEffect(() => {
     const timer = setInterval(() => {
-      checkForColumnOfFour()
-      checkForRowOfFour()
-      checkForColumnOfThree()
-      checkForRowOfThree()
-      moveIntoSquareBelow()
-      // needed to update state and cause DOM re-render.
-      setRandomColorArray([...randomColorArray])
+      const isColumnOfFour = checkForColumnOfFour()
+      const isRowOfFour = checkForRowOfFour()
+      const isColumnOfThree = checkForColumnOfThree()
+      const isRowOfThree = checkForRowOfThree()
+      const isMovedBlank = moveIntoSquareBelow()
+      // check for changes and re-render view.
+      if (
+        isColumnOfFour ||
+        isRowOfFour ||
+        isColumnOfThree ||
+        isRowOfThree ||
+        isMovedBlank
+      ) {
+        // needed to update state and cause DOM re-render.
+        setRandomColorArray([...randomColorArray])
+      }
     }, intervalDelay)
 
     return () => clearInterval(timer)
