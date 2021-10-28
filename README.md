@@ -1,12 +1,12 @@
 # Candy Crush Game inspired by Ania Kubow
 
-<font size="4">**Thank you Ania for making such a great game and allowing others to learn from you.**</font>
+<font size="+2">**Thank you Ania for making such a great game and allowing others to learn from you.**</font>
 
 [Ania Kubow Candy Crush Youtube video](https://www.youtube.com/watch?v=PBrEq9Wd6_U)
 
 [Ania Kubow Candy Crush Github page](https://github.com/kubowania/candy-crush-reactjs.git)
 
-<font size="4"> You can play my version [here](https://webmastersmith.github.io/candy-crush-app/)</font>
+<font size="+2"> You can play my version [here](https://webmastersmith.github.io/candy-crush-app/)</font>
 
 &nbsp;
 
