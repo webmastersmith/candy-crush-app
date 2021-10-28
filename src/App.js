@@ -256,6 +256,10 @@ const Wrapper = styled.div`
   align-items: center;
 `
 const H1 = styled.h1`
+  font-size: 100%;
+  @media (min-width: 560px) {
+    font-size: 200%;
+  }
   &:nth-child(2) {
     margin-bottom: 1rem;
   }
@@ -264,14 +268,28 @@ const H1 = styled.h1`
 const Game = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 560px;
-  height: 560px;
+  width: 320px;
+  height: 320px;
+  @media (min-width: 560px) {
+    width: 560px;
+    height: 560px;
+  }
 `
 const Tile = styled.img`
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
+
+  @media (min-width: 560px) {
+    width: 70px;
+    height: 70px;
+  }
 `
 const Rules = styled.div`
+  font-size: 75%;
+  @media (min-width: 560px) {
+    font-size: 100%;
+  }
+
   margin-top: 4rem;
   font-weight: bold;
   text-align: center;
