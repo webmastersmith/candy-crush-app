@@ -8,10 +8,10 @@
 ## You can play my version [here](https://webmastersmith.github.io/candy-crush-app/)
 
 
-## Improvements
+## Game Code Improvements
 1. Added useCallback and useMemo to functions used inside useEffect.
 2. Minor changes to game logic.
-3. Added if statement logic to state, stopping unnecessary renders.
+3. Added if statement logic to state, stopping unnecessary UI renders.
 
 ## My Code Improvements
 1. VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
