@@ -13,7 +13,7 @@
 2. Minor changes to game logic.
 3. Added if statement logic to state, stopping unnecessary UI renders.
 
-## My Code Improvements
+## Challenges That Helped Me Improve As A Developer
 1. VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
 2. Effective use of if statements to avoid unnecessary expensive UI renders.
 3. Using the HTML5 Drag Drop API and the logic to control UI renders.
