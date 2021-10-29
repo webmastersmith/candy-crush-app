@@ -262,6 +262,14 @@ const Game = styled.div`
   flex-wrap: wrap;
   width: 320px;
   height: 320px;
+  @media (min-width: 360px) {
+    width: 360px;
+    height: 360px;
+  }
+  @media (min-width: 400px) {
+    width: 400px;
+    height: 400px;
+  }
   @media (min-width: 560px) {
     width: 560px;
     height: 560px;
@@ -270,7 +278,14 @@ const Game = styled.div`
 const Tile = styled.img`
   width: 40px;
   height: 40px;
-
+  @media (min-width: 360px) {
+    width: 45px;
+    height: 45px;
+  }
+  @media (min-width: 400px) {
+    width: 50px;
+    height: 50px;
+  }
   @media (min-width: 560px) {
     width: 70px;
     height: 70px;

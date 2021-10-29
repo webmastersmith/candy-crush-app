@@ -22,5 +22,5 @@
 * VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
 * Effective use of if statements to avoid unnecessary expensive UI renders.
 * Using the HTML5 Drag Drop API and the logic to control UI renders.
-* Understanding state and memory management by removing setInterval from Game.
+* Understanding React state and memory management by removing setInterval from game.
 * Adding DragDropTouch.js to translate HTML5 DragDrop API for mobile browsers that don't support the API.
