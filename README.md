@@ -21,3 +21,4 @@
 1. VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
 2. Effective use of if statements to avoid unnecessary expensive UI renders.
 3. Using the HTML5 Drag Drop API and the logic to control UI renders.
+4. Adding DragDropTouch.js to translate HTML5 DragDrop API for mobile browsers that don't support the API.
