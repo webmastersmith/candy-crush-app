@@ -193,11 +193,14 @@ export default function App() {
 
   //run all functions when there is change to randomColorArray.
   useEffect(() => {
-    checkForColumnOfFour()
-    checkForRowOfFour()
-    checkForColumnOfThree()
-    checkForRowOfThree()
-    moveIntoSquareBelow()
+    //needed because logic counts empty squares during initial build as matches.
+    if (randomColorArray.length === 64) {
+      checkForColumnOfFour()
+      checkForRowOfFour()
+      checkForColumnOfThree()
+      checkForRowOfThree()
+      moveIntoSquareBelow()
+    }
   }, [
     randomColorArray,
     checkForColumnOfFour,
