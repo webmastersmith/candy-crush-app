@@ -30,5 +30,7 @@
 ## Optimized with setInterval and if statements
 ![setInterval and if statements to control UI](/readme-images/setInterval-after-all-performance-improvements.png)
 
+&nbsp;
+
 ## React State management only, NO setInterval
 ![React State Management](/readme-images/pure-react-without-setinterval.png)
