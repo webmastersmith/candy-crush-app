@@ -13,7 +13,6 @@ export default function App() {
   const [tileBeingDragged, setTileBeingDragged] = useState(null)
   const [tileBeingReplaced, setTileBeingReplaced] = useState(null)
   const [score, setScore] = useState(0)
-  const intervalDelay = 100
 
   const candyColors = useMemo(
     () => [
@@ -42,6 +41,7 @@ export default function App() {
         indexs.forEach((index) => (randomColorArray[index] = blank))
         isMatch = true
         setScore((s) => s + 4)
+        setRandomColorArray([...randomColorArray])
       }
     }
     return isMatch
@@ -66,6 +66,7 @@ export default function App() {
           indexs.forEach((index) => (randomColorArray[index] = blank))
           isMatch = true
           setScore((s) => s + 4)
+          setRandomColorArray([...randomColorArray])
         }
       }
     }
@@ -84,6 +85,7 @@ export default function App() {
         indexs.forEach((index) => (randomColorArray[index] = blank))
         isMatch = true
         setScore((s) => s + 3)
+        setRandomColorArray([...randomColorArray])
       }
     }
     return isMatch
@@ -106,6 +108,7 @@ export default function App() {
           indexs.forEach((index) => (randomColorArray[index] = blank))
           isMatch = true
           setScore((s) => s + 3)
+          setRandomColorArray([...randomColorArray])
         }
       }
     }
@@ -122,6 +125,7 @@ export default function App() {
       // if blank has made it to the first row, insert random candy color.
       if (isFirstRow && randomColorArray[idx] === blank) {
         randomColorArray[idx] = randomColor(candyColors)
+        setRandomColorArray([...randomColorArray])
         isMatch = true
       }
 
@@ -130,13 +134,15 @@ export default function App() {
         isMatch = true
         randomColorArray[idx + width] = randomColorArray[idx]
         randomColorArray[idx] = blank
+        setRandomColorArray([...randomColorArray])
       }
     }
     return isMatch
   }, [randomColorArray, candyColors])
 
-  // run once on load. Create initial randomColorArray board and add to state.
+  // run once on initial load.
   useEffect(() => {
+    // Create initial randomColorArray board and add to state.
     const colorArray = []
     for (let i = 0; i < width * width; i++) {
       colorArray.push(randomColor(candyColors))
@@ -175,37 +181,23 @@ export default function App() {
 
       // if any are true, do nothing, randomColorArray has already been switched.
       if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
-        // do nothing
+        setRandomColorArray([...randomColorArray])
       } else {
         // if not a match, return colors back to original.
         randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
         randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
+        // no need to update state, nothing was changed.
       }
     }
   }
 
-  //run set interval and check board for matches
+  //run all functions when there is change to randomColorArray.
   useEffect(() => {
-    const timer = setInterval(() => {
-      const isColumnOfFour = checkForColumnOfFour()
-      const isRowOfFour = checkForRowOfFour()
-      const isColumnOfThree = checkForColumnOfThree()
-      const isRowOfThree = checkForRowOfThree()
-      const isMovedBlank = moveIntoSquareBelow()
-      // check for changes and re-render view.
-      if (
-        isColumnOfFour ||
-        isRowOfFour ||
-        isColumnOfThree ||
-        isRowOfThree ||
-        isMovedBlank
-      ) {
-        // spread operator is needed to cause DOM re-render. Else view will not update.
-        setRandomColorArray([...randomColorArray])
-      }
-    }, intervalDelay)
-
-    return () => clearInterval(timer)
+    checkForColumnOfFour()
+    checkForRowOfFour()
+    checkForColumnOfThree()
+    checkForRowOfThree()
+    moveIntoSquareBelow()
   }, [
     randomColorArray,
     checkForColumnOfFour,

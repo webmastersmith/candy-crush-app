@@ -11,14 +11,16 @@
 &nbsp;
 
 ## Game Code Improvements
-1. Added useCallback and useMemo to functions used inside useEffect.
-2. Minor changes to game logic.
-3. Added if statement logic to state, stopping unnecessary UI renders.
+* Added useCallback and useMemo to functions used inside useEffect.
+* Minor changes to game logic.
+* Added if statement logic to state, stopping unnecessary UI renders.
+* Removed setInterval and rely completely on React state management.
 
 &nbsp;
 
 ## Challenges that helped me improve as a Developer
-1. VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
-2. Effective use of if statements to avoid unnecessary expensive UI renders.
-3. Using the HTML5 Drag Drop API and the logic to control UI renders.
-4. Adding DragDropTouch.js to translate HTML5 DragDrop API for mobile browsers that don't support the API.
+* VS code linting helped me improve memoization techniques for non-primitives (functions, arrays, objects).
+* Effective use of if statements to avoid unnecessary expensive UI renders.
+* Using the HTML5 Drag Drop API and the logic to control UI renders.
+* Understanding state and memory management by removing setInterval from Game.
+* Adding DragDropTouch.js to translate HTML5 DragDrop API for mobile browsers that don't support the API.
