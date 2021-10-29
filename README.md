@@ -25,6 +25,8 @@
 * Understanding React state and memory management by removing setInterval from game.
 * Adding DragDropTouch.js to translate HTML5 DragDrop API for mobile browsers that don't support the API.
 
+&nbsp;
+
 ## Optimized with setInterval and if statements
 ![setInterval and if statements to control UI](/readme-images/setInterval-after-all-performance-improvements.png)
 
