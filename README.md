@@ -10,7 +10,7 @@
 
 &nbsp;
 
-## Game Code Improvements
+## Game Code Refactor Improvements
 * Added useCallback and useMemo to functions used inside useEffect.
 * Minor changes to game logic.
 * Added if statement logic to state, stopping unnecessary UI renders.

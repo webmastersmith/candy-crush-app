@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { memo, useState, useEffect, useMemo, useCallback } from 'react'
 import styled from 'styled-components/macro'
 import blank from './images/blank.png'
 import blueCandy from './images/blue-candy.png'
@@ -8,7 +8,7 @@ import purpleCandy from './images/purple-candy.png'
 import redCandy from './images/red-candy.png'
 import yellowCandy from './images/yellow-candy.png'
 
-export default function App() {
+export default memo(function App() {
   const [randomColorArray, setRandomColorArray] = useState([])
   const [tileBeingDragged, setTileBeingDragged] = useState(null)
   const [tileBeingReplaced, setTileBeingReplaced] = useState(null)
@@ -26,7 +26,10 @@ export default function App() {
     []
   )
   const width = 8
-  const randomColor = (candy) => candy[Math.floor(Math.random() * candy.length)]
+  const randomColor = useCallback(
+    (candy) => candy[Math.floor(Math.random() * candy.length)],
+    []
+  )
 
   const checkForColumnOfFour = useCallback(() => {
     let isMatch = false
@@ -138,7 +141,7 @@ export default function App() {
       }
     }
     return isMatch
-  }, [randomColorArray, candyColors])
+  }, [randomColorArray, candyColors, randomColor])
 
   // run once on initial load.
   useEffect(() => {
@@ -151,45 +154,57 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const dragStart = (e) => setTileBeingDragged(e.target)
-  const dragDrop = (e) => {
+  const dragStart = useCallback((e) => setTileBeingDragged(e.target), [])
+  const dragDrop = useCallback((e) => {
     e.preventDefault()
     setTileBeingReplaced(e.target)
-  }
-  const dragEnd = (e) => {
-    // get 'data-id' from tile
-    const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
-    const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
+  }, [])
+  const dragEnd = useCallback(
+    (e) => {
+      // get 'data-id' from tile
+      const tileDraggedId = parseInt(tileBeingDragged.getAttribute('data-id'))
+      const tileReplacedId = parseInt(tileBeingReplaced.getAttribute('data-id'))
 
-    const validMoves = [
-      tileDraggedId - 1,
-      tileDraggedId + 1,
-      tileDraggedId - width,
-      tileDraggedId + width,
-    ]
+      const validMoves = [
+        tileDraggedId - 1,
+        tileDraggedId + 1,
+        tileDraggedId - width,
+        tileDraggedId + width,
+      ]
 
-    // check if move is valid before checking if it created a match of 3 or 4.
-    const isValidMove = validMoves.includes(tileReplacedId)
-    if (isValidMove) {
-      //make candy switch, then check if it creates 3 or 4 match.
-      randomColorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
-      randomColorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
-      const isColumnOfFour = checkForColumnOfFour()
-      const isRowOfFour = checkForRowOfFour()
-      const isColumnOfThree = checkForColumnOfThree()
-      const isRowOfThree = checkForRowOfThree()
+      // check if move is valid before checking if it created a match of 3 or 4.
+      const isValidMove = validMoves.includes(tileReplacedId)
+      if (isValidMove) {
+        //make candy switch, then check if it creates 3 or 4 match.
+        randomColorArray[tileReplacedId] = tileBeingDragged.getAttribute('src')
+        randomColorArray[tileDraggedId] = tileBeingReplaced.getAttribute('src')
+        const isColumnOfFour = checkForColumnOfFour()
+        const isRowOfFour = checkForRowOfFour()
+        const isColumnOfThree = checkForColumnOfThree()
+        const isRowOfThree = checkForRowOfThree()
 
-      // if any are true, do nothing, randomColorArray has already been switched.
-      if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
-        setRandomColorArray([...randomColorArray])
-      } else {
-        // if not a match, return colors back to original.
-        randomColorArray[tileReplacedId] = tileBeingReplaced.getAttribute('src')
-        randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
-        // no need to update state, nothing was changed.
+        // if any are true, do nothing, randomColorArray has already been switched.
+        if (isColumnOfFour || isRowOfFour || isColumnOfThree || isRowOfThree) {
+          setRandomColorArray([...randomColorArray])
+        } else {
+          // if not a match, return colors back to original.
+          randomColorArray[tileReplacedId] =
+            tileBeingReplaced.getAttribute('src')
+          randomColorArray[tileDraggedId] = tileBeingDragged.getAttribute('src')
+          // no need to update state, nothing was changed.
+        }
       }
-    }
-  }
+    },
+    [
+      checkForColumnOfFour,
+      checkForColumnOfThree,
+      checkForRowOfFour,
+      checkForRowOfThree,
+      randomColorArray,
+      tileBeingDragged,
+      tileBeingReplaced,
+    ]
+  )
 
   //run all functions when there is change to randomColorArray.
   useEffect(() => {
@@ -201,48 +216,47 @@ export default function App() {
       checkForRowOfThree()
       moveIntoSquareBelow()
     }
-  }, [
-    randomColorArray,
-    checkForColumnOfFour,
-    checkForRowOfFour,
-    checkForColumnOfThree,
-    checkForRowOfThree,
-    moveIntoSquareBelow,
-  ])
+  }, [randomColorArray, checkForColumnOfFour, checkForRowOfFour, checkForColumnOfThree, checkForRowOfThree, moveIntoSquareBelow])
 
-  return (
-    <Wrapper>
-      <H1>Candy Crush</H1>
-      <H1>Score: {score}</H1>
-      <Game>
-        {randomColorArray.map((candy, idx) => (
-          <Tile
-            key={idx}
-            src={candy}
-            alt={idx}
-            data-id={idx}
-            onDragStart={dragStart}
-            draggable={true}
-            onDragOver={(e) => e.preventDefault()}
-            onDragEnter={(e) => e.preventDefault()}
-            onDragLeave={(e) => e.preventDefault()}
-            onDrop={dragDrop}
-            onDragEnd={dragEnd}
-          />
-        ))}
-      </Game>
-      <Rules>
-        Candy Crush Rules
-        <ul>
-          <li>You can only move one space at a time: up, down, left, right</li>
-          <li>
-            The moved tile must make three or four of a kind to be a valid move
-          </li>
-        </ul>
-      </Rules>
-    </Wrapper>
+  return useMemo(
+    () => (
+      <Wrapper>
+        <H1>Candy Crush</H1>
+        <H1>Score: {score}</H1>
+        <Game>
+          {randomColorArray.map((candy, idx) => (
+            <Tile
+              key={idx}
+              src={candy}
+              alt={idx}
+              data-id={idx}
+              onDragStart={dragStart}
+              draggable={true}
+              onDragOver={(e) => e.preventDefault()}
+              onDragEnter={(e) => e.preventDefault()}
+              onDragLeave={(e) => e.preventDefault()}
+              onDrop={dragDrop}
+              onDragEnd={dragEnd}
+            />
+          ))}
+        </Game>
+        <Rules>
+          Candy Crush Rules
+          <ul>
+            <li>
+              You can only move one space at a time: up, down, left, right
+            </li>
+            <li>
+              The moved tile must make three or four of a kind to be a valid
+              move
+            </li>
+          </ul>
+        </Rules>
+      </Wrapper>
+    ),
+    [score, randomColorArray, dragStart, dragDrop, dragEnd]
   )
-}
+})
 
 const Wrapper = styled.div`
   display: flex;
