@@ -1,5 +1,4 @@
 import { memo, useState, useEffect, useMemo, useCallback } from 'react'
-import styled from 'styled-components/macro'
 import blank from './images/blank.png'
 import blueCandy from './images/blue-candy.png'
 import greenCandy from './images/green-candy.png'
@@ -7,6 +6,7 @@ import orangeCandy from './images/orange-candy.png'
 import purpleCandy from './images/purple-candy.png'
 import redCandy from './images/red-candy.png'
 import yellowCandy from './images/yellow-candy.png'
+import './App.scss'
 
 export default memo(function App() {
   const [randomColorArray, setRandomColorArray] = useState([])
@@ -220,12 +220,12 @@ export default memo(function App() {
 
   return useMemo(
     () => (
-      <Wrapper>
-        <H1>Candy Crush</H1>
-        <H1>Score: {score}</H1>
-        <Game>
+      <div className="candy-wrapper">
+        <h1>Candy Crush</h1>
+        <h1>Score: {score}</h1>
+        <div className="candy-game">
           {randomColorArray.map((candy, idx) => (
-            <Tile
+            <img
               key={idx}
               src={candy}
               alt={idx}
@@ -239,8 +239,8 @@ export default memo(function App() {
               onDragEnd={dragEnd}
             />
           ))}
-        </Game>
-        <Rules>
+        </div>
+        <div className="candy-rules">
           Candy Crush Rules
           <ul>
             <li>
@@ -251,77 +251,9 @@ export default memo(function App() {
               move
             </li>
           </ul>
-        </Rules>
-      </Wrapper>
+        </div>
+      </div>
     ),
     [score, randomColorArray, dragStart, dragDrop, dragEnd]
   )
 })
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  align-items: center;
-`
-const H1 = styled.h1`
-  font-size: 100%;
-  @media (min-width: 560px) {
-    font-size: 200%;
-  }
-  &:nth-child(2) {
-    margin-bottom: 1rem;
-  }
-  font-weight: bold;
-`
-const Game = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 320px;
-  height: 320px;
-  @media (min-width: 360px) {
-    width: 360px;
-    height: 360px;
-  }
-  @media (min-width: 400px) {
-    width: 400px;
-    height: 400px;
-  }
-  @media (min-width: 560px) {
-    width: 560px;
-    height: 560px;
-  }
-`
-const Tile = styled.img`
-  width: 40px;
-  height: 40px;
-  @media (min-width: 360px) {
-    width: 45px;
-    height: 45px;
-  }
-  @media (min-width: 400px) {
-    width: 50px;
-    height: 50px;
-  }
-  @media (min-width: 560px) {
-    width: 70px;
-    height: 70px;
-  }
-`
-const Rules = styled.div`
-  font-size: 75%;
-  @media (min-width: 560px) {
-    font-size: 100%;
-  }
-
-  margin-top: 4rem;
-  font-weight: bold;
-  text-align: center;
-  ul {
-    margin-top: 0;
-    li {
-      text-align: left;
-      font-weight: normal;
-    }
-  }
-`
