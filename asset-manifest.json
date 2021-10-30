@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/candy-crush-app/static/css/main.34adfce5.chunk.css",
-    "main.js": "/candy-crush-app/static/js/main.bcd26314.chunk.js",
-    "main.js.map": "/candy-crush-app/static/js/main.bcd26314.chunk.js.map",
+    "main.css": "/candy-crush-app/static/css/main.afba98dc.chunk.css",
+    "main.js": "/candy-crush-app/static/js/main.aaf666c3.chunk.js",
+    "main.js.map": "/candy-crush-app/static/js/main.aaf666c3.chunk.js.map",
     "runtime-main.js": "/candy-crush-app/static/js/runtime-main.9c1ecd2f.js",
     "runtime-main.js.map": "/candy-crush-app/static/js/runtime-main.9c1ecd2f.js.map",
-    "static/js/2.7abb9952.chunk.js": "/candy-crush-app/static/js/2.7abb9952.chunk.js",
-    "static/js/2.7abb9952.chunk.js.map": "/candy-crush-app/static/js/2.7abb9952.chunk.js.map",
+    "static/js/2.66be1fa1.chunk.js": "/candy-crush-app/static/js/2.66be1fa1.chunk.js",
+    "static/js/2.66be1fa1.chunk.js.map": "/candy-crush-app/static/js/2.66be1fa1.chunk.js.map",
     "index.html": "/candy-crush-app/index.html",
-    "static/css/main.34adfce5.chunk.css.map": "/candy-crush-app/static/css/main.34adfce5.chunk.css.map",
-    "static/js/2.7abb9952.chunk.js.LICENSE.txt": "/candy-crush-app/static/js/2.7abb9952.chunk.js.LICENSE.txt",
+    "static/css/main.afba98dc.chunk.css.map": "/candy-crush-app/static/css/main.afba98dc.chunk.css.map",
+    "static/js/2.66be1fa1.chunk.js.LICENSE.txt": "/candy-crush-app/static/js/2.66be1fa1.chunk.js.LICENSE.txt",
     "static/media/blank.fbcb9179.png": "/candy-crush-app/static/media/blank.fbcb9179.png",
     "static/media/blue-candy.73120c15.png": "/candy-crush-app/static/media/blue-candy.73120c15.png",
     "static/media/green-candy.599f7016.png": "/candy-crush-app/static/media/green-candy.599f7016.png",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.9c1ecd2f.js",
-    "static/js/2.7abb9952.chunk.js",
-    "static/css/main.34adfce5.chunk.css",
-    "static/js/main.bcd26314.chunk.js"
+    "static/js/2.66be1fa1.chunk.js",
+    "static/css/main.afba98dc.chunk.css",
+    "static/js/main.aaf666c3.chunk.js"
   ]
 }
