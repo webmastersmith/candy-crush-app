@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useMemo, useCallback } from 'react'
-import blank from './images/blank.png'
+import blanks from './images/blank.png'
 import blueCandy from './images/blue-candy.png'
 import greenCandy from './images/green-candy.png'
 import orangeCandy from './images/orange-candy.png'
@@ -14,6 +14,7 @@ export default memo(function App() {
   const [tileBeingReplaced, setTileBeingReplaced] = useState(null)
   const [score, setScore] = useState(0)
 
+  const blank = useMemo(() => blanks, [])
   const candyColors = useMemo(
     () => [
       blueCandy,
@@ -48,7 +49,7 @@ export default memo(function App() {
       }
     }
     return isMatch
-  }, [randomColorArray])
+  }, [randomColorArray, blank])
 
   const checkForRowOfFour = useCallback(() => {
     let isMatch = false
@@ -74,7 +75,7 @@ export default memo(function App() {
       }
     }
     return isMatch
-  }, [randomColorArray])
+  }, [randomColorArray, blank])
 
   const checkForColumnOfThree = useCallback(() => {
     let isMatch = false
@@ -92,7 +93,7 @@ export default memo(function App() {
       }
     }
     return isMatch
-  }, [randomColorArray])
+  }, [randomColorArray, blank])
 
   const checkForRowOfThree = useCallback(() => {
     let isMatch = false
@@ -116,7 +117,7 @@ export default memo(function App() {
       }
     }
     return isMatch
-  }, [randomColorArray])
+  }, [randomColorArray, blank])
 
   const moveIntoSquareBelow = useCallback(() => {
     let isMatch = false
@@ -141,7 +142,7 @@ export default memo(function App() {
       }
     }
     return isMatch
-  }, [randomColorArray, candyColors, randomColor])
+  }, [randomColorArray, candyColors, randomColor, blank])
 
   // run once on initial load.
   useEffect(() => {
